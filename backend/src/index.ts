@@ -5,6 +5,7 @@ import "dotenv/config";
 import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users.ts";
+import authRoutes from "./routes/auth.ts";
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true})); // help parse url, 
 app.use(cors());
 
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes)
 
 app.listen(7000, ()=>{
